@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>JS异常监控 示例</title>
+    <script src="/dist/umd/js-hunter.umd.js"></script>
+    <script>
+      // window.onerror = function (msg, url, row, col, error) {
+      //   console.log('JS异常监控 示例 - onerror', {
+      //     msg,
+      //     url,
+      //     row,
+      //     col,
+      //     error,
+      //     stack: error && error.stack,
+      //     message: error && error.message,
+      //   });
+      // };
+      jsHunter.init({
+        server: 'http://localhost:3400',
+        scriptCapture: true,
+        allowUrls: ['http://localhost:8080'],
+      });
+    </script>
+  </head>
+  <body>
+    <p>
+      <button onclick="loadError()">资源加载出错</button>
+    </p>
+
+    <p>
+      <button onclick="jsError()">js运行时出错</button>
+    </p>
+
+    <p>
+      <button onclick="decodeURIComponentError()">URI处理错误</button>
+    </p>
+
+    <p>
+      <button onclick="promiseReject()">Promise reject</button>
+    </p>
+
+    <p>
+      <button onclick="xhrError()">xhr请求错误</button>
+    </p>
+
+    <p>
+      <button onclick="scriptError()">Script error</button>
+    </p>
+
+    <p>
+      <button onclick="sendEvent()">上报自定义的数据</button>
+    </p>
+
+    <script>
+      function loadError() {
+        const scriptElement = document.createElement('script');
+        scriptElement.setAttribute('src', './null.js');
+        document.body.appendChild(scriptElement);
+      }
+
+      function jsError() {
+        const a = {};
+        console.log(a.b.cd);
+      }
+
+      function decodeURIComponentError() {
+        decodeURIComponent('%');
+      }
+
+      function promiseReject() {
+        function foo() {
+          Promise.reject('Hello, reject');
+        }
+        foo();
+      }
+
+      function xhrError() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost:8080/errorapi');
+        xhr.send();
+      }
+
+      function scriptError() {
+        const script = document.createElement('script');
+        script.src = 'http://localhost:8080/examples/scripterror.js';
+        document.body.appendChild(script);
+
+        setTimeout(() => {
+          jsHunter.wrapFnError(foo)();
+        }, 3000);
+      }
+
+      function sendEvent() {
+        jsHunter.sendEvent({
+          message: '上报自定义的数据',
+          customInfo: '自定义的补充内容',
+          level: 'info',
+        });
+      }
+    </script>
+  </body>
+</html>

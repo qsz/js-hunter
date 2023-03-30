@@ -1,0 +1,46 @@
+{
+  "name": "js-hunter",
+  "version": "0.0.1",
+  "description": "前端异常监控sdk",
+  "main": "dist/umd/js-hunter.umd.js",
+  "module": "dist/esm/js-hunter.es.js",
+  "typings": "dist/types/js-hunter.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=development rollup -c rollup.config.ts -w",
+    "build": "cross-env NODE_ENV=production  rimraf dist && tsc --module commonjs && rollup -c rollup.config.ts"
+  },
+  "author": "xjj745015549@163.com",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.1.1",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^3.1.9",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^11.0.1",
+    "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.4",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa-static": "^4.0.2",
+    "@typescript-eslint/eslint-plugin": "^4.11.1",
+    "@typescript-eslint/parser": "^4.11.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.35.1",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.1.3"
+  }
+}

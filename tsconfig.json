@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true, // 以module的形式引入json
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "typeRoots": ["node_modules/@types"],
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "outDir": "dist/lib",
+    "baseUrl": ".", // baseUrl用来描述计算相对路径时的根目录
+    "paths": {
+      // paths用来描述路径别名
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist", "test"]
+}
